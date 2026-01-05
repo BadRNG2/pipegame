@@ -7,7 +7,7 @@ type FaucetProps = {
   sizeX?: number;
   sizeY?: number;
   side?: Direction;
-  sizeRatio?: number; // relative to a GamePiece (0..1)
+  sizeRatio?: number;
   animate?: boolean;
   status?: string;
   onClickHandler?: () => void;
@@ -102,12 +102,6 @@ export default function Faucet({
   const vbW = 100;
   const vbH = 100;
 
-  // (removed explicit water line drawing) keep valve fills only
-
-  // handle rotation: animate a small arm centered roughly near the valve knob (estimate)
-  const knobX = vbW * 0.5;
-  const knobY = vbH * 0.7;
-  const handleAngle = isOpen ? -45 : 0;
   return (
     <div style={containerStyle} onClick={onClickHandler} title={`Faucet (${i},${j}) ${side}`}>
       <style>{`@keyframes faucet-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>

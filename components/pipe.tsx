@@ -601,7 +601,7 @@ export default function Pipe({
             height: '100%',
           }}
         >
-          {/* base pipe border (gray) */}
+          {/* base pipe border (black) */}
           <polyline
             points={pipePoints.map(p => `${p.x * 100},${p.y * 100}`).join(' ')}
             fill="none"
