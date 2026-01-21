@@ -61,6 +61,17 @@ export default function PipeGame({
   const [waterSpilled, setWaterSpilled] = useState<boolean>(false);
   const [waterSpills, setWaterSpills] = useState<WaterSpillProps[]>([]);
 
+  const [showHowTo, setShowHowTo] = useState(true);
+
+  useEffect(() => {
+    try {
+      const seen = localStorage.getItem('pipegame_seen_howto');
+      if (seen === '1') setShowHowTo(false);
+    } catch (e) {
+      // ignore
+    }
+  }, []);
+
   function initializeBoard() {
     setGoalReached(false);
     setLost(false);
@@ -869,6 +880,61 @@ export default function PipeGame({
             </div>
           </div>
         </>
+      )}
+      {showHowTo && (
+        <div
+          onClick={() => {
+            try {
+              localStorage.setItem('pipegame_seen_howto', '1');
+            } catch (e) {}
+            setShowHowTo(false);
+          }}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            pointerEvents: 'auto',
+            backgroundColor: 'rgba(0,0,0,0.75)',
+            zIndex: 70,
+          }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            className="rounded-lg p-6 shadow-lg text-left text-white max-w-lg mx-4"
+            style={{
+              zIndex: 80,
+              backgroundColor: 'rgba(31,41,55,0.95)',
+              border: '1px solid rgba(255,255,255,0.06)',
+            }}
+          >
+            <h2 className="text-2xl font-bold mb-3">How to play</h2>
+            <ul className="list-disc ml-5 text-sm leading-relaxed">
+              <li>Swap adjacent pipes to create a connected path.</li>
+              <li>Click <strong>Play</strong> to start the water flow.</li>
+              <li>Connect the faucet to the goal before the flow finishes.</li>
+              <li>Toggle <strong>Spills</strong> to enable/disable spill behavior.</li>
+            </ul>
+            <div className="mt-4 text-right">
+              <button
+                type="button"
+                onClick={() => {
+                  try {
+                    localStorage.setItem('pipegame_seen_howto', '1');
+                  } catch (e) {}
+                  setShowHowTo(false);
+                }}
+                className="px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-md text-sm font-medium"
+              >
+                Got it
+              </button>
+            </div>
+          </div>
+        </div>
       )}
       {/* game board */}
       <div
