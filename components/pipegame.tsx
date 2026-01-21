@@ -15,10 +15,12 @@ export default function PipeGame({
   sizeX = 4,
   sizeY = 5,
   levelString: levelStringProp = '',
+  backgroundClass = 'bg-gray-800',
 }: {
   sizeX?: number;
   sizeY?: number;
   levelString?: string;
+  backgroundClass?: string;
 }) {
   const [faucetX, setFaucetX] = useState(0);
   const [faucetY, setFaucetY] = useState(0);
@@ -869,7 +871,10 @@ export default function PipeGame({
   orderedPieces.sort((a, b) => a.value - b.value);
 
   return (
-    <div className="flex items-center justify-center w-full">
+    <div
+      className="flex items-center justify-center w-full"
+      style={{ width: '100%', height: '100%', boxSizing: 'border-box', overflow: 'hidden' }}
+    >
       {false && goalReached && !lost && (
         <div className="absolute inset-0 pointer-events-none z-60">
           <Confetti />
@@ -985,25 +990,28 @@ export default function PipeGame({
           </div>
         </div>
       )}
-      {/* game board */}
+      {/* controls positioned above the board but inside the parent container */}
       <div
-        className="m-4 p-0 bg-gray-800 rounded-lg shadow-lg relative items-center justify-center w-full"
-        style={{ aspectRatio: `${gridSizeX} / ${gridSizeY}` }}
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          width: '100%',
+          boxSizing: 'border-box',
+          paddingTop: '8px',
+        }}
+        className="pointer-events-auto z-40 mb-2"
       >
-        {/* controls positioned close to the board, horizontally centered */}
         <div
           style={{
-            position: 'absolute',
-            left: '50%',
-            top: '-4.5rem',
-            transform: 'translateX(-50%)',
             backgroundColor: 'rgba(31,41,55,0.95)',
             padding: '6px 8px',
             borderRadius: '8px',
             boxShadow: '0 8px 20px rgba(0,0,0,0.45)',
             border: '1px solid rgba(255,255,255,0.04)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
           }}
-          className="pointer-events-auto z-40"
         >
           <div className="flex gap-2 items-center">
             <button
@@ -1113,7 +1121,17 @@ export default function PipeGame({
             </button>
           </div>
         </div>
+      </div>
 
+      <div
+        className={`m-4 p-0 rounded-lg shadow-lg relative items-center justify-center w-full overflow-hidden ${backgroundClass}`}
+        style={{
+          aspectRatio: `${gridSizeX} / ${gridSizeY}`,
+          maxWidth: '100%',
+          maxHeight: '100%',
+          boxSizing: 'border-box',
+        }}
+      >
         <div className="relative w-full h-full">
           {orderedPieces.map(({ i, j, value }) => {
             const pieceNumber = value;
