@@ -37,14 +37,14 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Publishing this package to GitHub Packages
 
-This repo is prepared to publish a scoped package to GitHub Packages as `@badrng/pipegame`.
+This repo is prepared to publish a scoped package to GitHub Packages as `@BadRNG2/pipegame`.
 
 Automatic publish via GitHub Actions
 - Create a GitHub Release (create a tag and publish a release) — this will trigger the `Publish package to GitHub Packages` workflow and run `npm publish`.
 - The workflow uses `${{ secrets.GITHUB_TOKEN }}` and requires the action permission `packages: write` (the workflow file already sets this permission).
 
 Manual publish (local)
-- Make sure `package.json` has `publishConfig.registry` set to `https://npm.pkg.github.com/` and `name` set to `@badrng/pipegame`.
+- Make sure `package.json` has `publishConfig.registry` set to `https://npm.pkg.github.com/` and `name` set to `@BadRNG2/pipegame`.
 - Create a Personal Access Token (PAT) with `write:packages` and `repo` (if publishing from a private repo). Then run locally:
 
 ```bash
