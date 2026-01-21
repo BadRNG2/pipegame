@@ -869,7 +869,7 @@ export default function PipeGame({
   orderedPieces.sort((a, b) => a.value - b.value);
 
   return (
-    <div className="flex items-center justify-center w-full h-full">
+    <div className="flex items-center justify-center w-full">
       {false && goalReached && !lost && (
         <div className="absolute inset-0 pointer-events-none z-60">
           <Confetti />
@@ -987,7 +987,7 @@ export default function PipeGame({
       )}
       {/* game board */}
       <div
-        className="m-4 p-0 bg-gray-800 rounded-lg shadow-lg relative items-center justify-center w-100"
+        className="m-4 p-0 bg-gray-800 rounded-lg shadow-lg relative items-center justify-center w-full"
         style={{ aspectRatio: `${gridSizeX} / ${gridSizeY}` }}
       >
         {/* controls positioned close to the board, horizontally centered */}
