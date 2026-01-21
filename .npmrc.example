@@ -1,0 +1,17 @@
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+registry=https://npm.pkg.github.com/
+
+# Usage:
+# 1. Create a GitHub Personal Access Token (PAT) with `write:packages` and `repo` (if package in private repo).
+# 2. Set env var GITHUB_TOKEN when publishing, e.g. in CI. Locally you can run:
+#
+#    setx GITHUB_TOKEN "ghp_..."    # Windows (PowerShell/CMD)
+#    export GITHUB_TOKEN=ghp_...    # macOS/Linux
+#
+# 3. Publish with npm (package.json.publishConfig points to GitHub registry):
+#
+#    npm publish
+#
+# To install the package from GitHub Packages:
+#
+#    npm install @your-github-username/pipegame --registry=https://npm.pkg.github.com/

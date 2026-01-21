@@ -34,3 +34,28 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Publishing this package to GitHub Packages
+
+This repo is prepared to publish a scoped package to GitHub Packages as `@badrng/pipegame`.
+
+Automatic publish via GitHub Actions
+- Create a GitHub Release (create a tag and publish a release) — this will trigger the `Publish package to GitHub Packages` workflow and run `npm publish`.
+- The workflow uses `${{ secrets.GITHUB_TOKEN }}` and requires the action permission `packages: write` (the workflow file already sets this permission).
+
+Manual publish (local)
+- Make sure `package.json` has `publishConfig.registry` set to `https://npm.pkg.github.com/` and `name` set to `@badrng/pipegame`.
+- Create a Personal Access Token (PAT) with `write:packages` and `repo` (if publishing from a private repo). Then run locally:
+
+```bash
+# on Windows (PowerShell)
+setx GITHUB_TOKEN "ghp_..."
+# or for macOS/Linux
+export GITHUB_TOKEN=ghp_...
+
+npm publish --registry=https://npm.pkg.github.com/
+```
+
+Notes
+- The root repo is a Next.js app; publishing the package does not affect Vercel builds. The workflow publishes only when you create a release.
+- The package currently publishes source files (no build step). If you prefer compiled output, I can add a `packages/pipegame` build layout and a `tsup` build step before publishing.

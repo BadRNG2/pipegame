@@ -1,10 +1,9 @@
 {
-  "name": "pipegame",
+  "name": "@badrng/pipegame",
   "version": "0.1.0",
   "description": "Mini pipe-puzzle game for Marcos Pires' portfolio",
   "author": "Marcos Pires <hello@marcospires.dev>",
   "homepage": "https://marcospires.dev",
-  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,11 +11,24 @@
     "lint": "eslint",
     "format": "prettier --write ."
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "files": [
+    "components",
+    "lib",
+    "public",
+    "app",
+    "README.md"
+  ],
+  "main": "components/pipegame.tsx",
   "dependencies": {
     "next": "16.1.1",
-    "react": "19.2.3",
-    "react-confetti": "^6.4.0",
-    "react-dom": "19.2.3"
+    "react-confetti": "^6.4.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
