@@ -1,5 +1,5 @@
 import React from 'react';
-import { Direction } from '@/lib/definitions';
+import { Direction } from '../lib/definitions';
 
 export default function Goal({
   i,

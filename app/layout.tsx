@@ -13,17 +13,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: { default: "Marcos Pires — Pipe Game", template: "%s | Marcos Pires" },
+  title: { default: 'Marcos Pires — Pipe Game', template: '%s | Marcos Pires' },
   description:
-    "Interactive pipe puzzle used in the portfolio of Marcos Pires — slide tiles to route water from faucet to goal.",
-  keywords: ["Marcos Pires", "pipe game", "puzzle", "portfolio", "React", "Next.js"],
-  authors: [{ name: "Marcos Pires", url: "https://marcospires.dev" }],
+    'Interactive pipe puzzle used in the portfolio of Marcos Pires — slide tiles to route water from faucet to goal.',
+  keywords: ['Marcos Pires', 'pipe game', 'puzzle', 'portfolio', 'React', 'Next.js'],
+  authors: [{ name: 'Marcos Pires', url: 'https://marcospires.dev' }],
   openGraph: {
-    title: "Marcos Pires — Pipe Game",
+    title: 'Marcos Pires — Pipe Game',
     description:
-      "Interactive pipe puzzle used in the portfolio of Marcos Pires — slide tiles to route water from faucet to goal.",
-    url: "https://marcospires.dev",
-    siteName: "Marcos Pires Portfolio",
+      'Interactive pipe puzzle used in the portfolio of Marcos Pires — slide tiles to route water from faucet to goal.',
+    url: 'https://marcospires.dev',
+    siteName: 'Marcos Pires Portfolio',
     images: [
       {
         url: '/og-image.svg',
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
         alt: 'Marcos Pires — Pipe Game',
       },
     ],
-    locale: "en_US",
-    type: "website",
+    locale: 'en_US',
+    type: 'website',
   },
 };
 

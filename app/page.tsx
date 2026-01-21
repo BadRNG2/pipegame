@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import PipeGame from '@/components/pipegame';
+import PipeGame from '../components/pipegame';
 
 export default function Home() {
   return (

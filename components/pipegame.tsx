@@ -1,15 +1,15 @@
 'use client';
-import Pipe from '@/components/pipe';
-import Faucet from '@/components/faucet';
-import Goal from '@/components/goal';
+import Pipe from './pipe';
+import Faucet from './faucet';
+import Goal from './goal';
 import { useEffect, useState, useRef } from 'react';
-import { GridPiece, Direction, Vector2D } from '@/lib/definitions';
-import { PIPE_ANIMATION_DURATION } from '@/lib/constants';
-import { neighboringOffsets, pairings } from '@/lib/utils';
+import { GridPiece, Direction, Vector2D } from '../lib/definitions';
+import { PIPE_ANIMATION_DURATION } from '../lib/constants';
+import { neighboringOffsets, pairings } from '../lib/utils';
 import Confetti from 'react-confetti';
 
-import { easyLevels, normalLevels, hardLevels, generateBatch } from '@/lib/levels/pipegamelevels';
-import WaterSpill, { WaterSpillProps } from "@/components/waterspill";
+import { easyLevels, normalLevels, hardLevels, generateBatch } from '../lib/levels/pipegamelevels';
+import WaterSpill, { WaterSpillProps } from './waterspill';
 
 export default function PipeGame({
   sizeX = 4,
@@ -668,7 +668,9 @@ export default function PipeGame({
             } else if (noSpillMode) {
               const isEmptyNeighbor = neighborValue === 0;
               const hasNeighborDirs = neighborDirections && neighborDirections.length > 0;
-              const isDisconnected = hasNeighborDirs ? !neighborDirections.includes(pairings[dir]) : false;
+              const isDisconnected = hasNeighborDirs
+                ? !neighborDirections.includes(pairings[dir])
+                : false;
               if (isEmptyNeighbor || isDisconnected) {
                 const spillKey = `${nx},${ny}`;
                 if (waterSpills.some(s => `${s.i},${s.j}` === spillKey)) continue;
@@ -682,10 +684,15 @@ export default function PipeGame({
                   incomingDir: pairings[dir] as Direction,
                   side: pairings[dir] as Direction,
                 };
-                setWaterSpills(prev => (prev.some(s => `${s.i},${s.j}` === spillKey) ? prev : [...prev, newSpill]));
+                setWaterSpills(prev =>
+                  prev.some(s => `${s.i},${s.j}` === spillKey) ? prev : [...prev, newSpill]
+                );
                 setLost(true);
                 if (!wasAlreadySpilled && spillPopupTimerRef.current == null) {
-                  spillPopupTimerRef.current = window.setTimeout(() => setShowPopup(true), 400) as unknown as number;
+                  spillPopupTimerRef.current = window.setTimeout(
+                    () => setShowPopup(true),
+                    400
+                  ) as unknown as number;
                 }
               }
             }
@@ -703,10 +710,38 @@ export default function PipeGame({
             if (noSpillMode) {
               // if the out-of-bounds direction corresponds to the faucet location, allow flow into faucet (no spill)
               let intoFaucet = false;
-              if (dir === 'left' && nx === -1 && faucetSide === 'left' && faucetX === 0 && faucetY === y) intoFaucet = true;
-              if (dir === 'right' && nx === gridSizeX && faucetSide === 'right' && faucetX === gridSizeX - 1 && faucetY === y) intoFaucet = true;
-              if (dir === 'up' && ny === -1 && faucetSide === 'up' && faucetY === 0 && faucetX === x) intoFaucet = true;
-              if (dir === 'down' && ny === gridSizeY && faucetSide === 'down' && faucetY === gridSizeY - 1 && faucetX === x) intoFaucet = true;
+              if (
+                dir === 'left' &&
+                nx === -1 &&
+                faucetSide === 'left' &&
+                faucetX === 0 &&
+                faucetY === y
+              )
+                intoFaucet = true;
+              if (
+                dir === 'right' &&
+                nx === gridSizeX &&
+                faucetSide === 'right' &&
+                faucetX === gridSizeX - 1 &&
+                faucetY === y
+              )
+                intoFaucet = true;
+              if (
+                dir === 'up' &&
+                ny === -1 &&
+                faucetSide === 'up' &&
+                faucetY === 0 &&
+                faucetX === x
+              )
+                intoFaucet = true;
+              if (
+                dir === 'down' &&
+                ny === gridSizeY &&
+                faucetSide === 'down' &&
+                faucetY === gridSizeY - 1 &&
+                faucetX === x
+              )
+                intoFaucet = true;
               if (intoFaucet) continue;
 
               const spillKey = `${nx},${ny}`;
@@ -721,10 +756,15 @@ export default function PipeGame({
                 incomingDir: pairings[dir] as Direction,
                 side: pairings[dir] as Direction,
               };
-              setWaterSpills(prev => (prev.some(s => `${s.i},${s.j}` === spillKey) ? prev : [...prev, newSpill]));
+              setWaterSpills(prev =>
+                prev.some(s => `${s.i},${s.j}` === spillKey) ? prev : [...prev, newSpill]
+              );
               setLost(true);
               if (!wasAlreadySpilled && spillPopupTimerRef.current == null) {
-                spillPopupTimerRef.current = window.setTimeout(() => setShowPopup(true), 400) as unknown as number;
+                spillPopupTimerRef.current = window.setTimeout(
+                  () => setShowPopup(true),
+                  400
+                ) as unknown as number;
               }
             }
           }
@@ -762,7 +802,10 @@ export default function PipeGame({
             console.log('Flow finished without reaching goal — you lost');
             setLost(true);
             if (showPopupTimerRef.current == null) {
-              showPopupTimerRef.current = window.setTimeout(() => setShowPopup(true), 1500) as unknown as number;
+              showPopupTimerRef.current = window.setTimeout(
+                () => setShowPopup(true),
+                1500
+              ) as unknown as number;
             }
           }
         }
@@ -827,7 +870,7 @@ export default function PipeGame({
 
   return (
     <div className="flex items-center justify-center w-full h-full">
-      {(false &&goalReached && !lost) && (
+      {false && goalReached && !lost && (
         <div className="absolute inset-0 pointer-events-none z-60">
           <Confetti />
         </div>
@@ -858,16 +901,18 @@ export default function PipeGame({
                 backgroundColor: lost ? 'rgba(200,30,45,0.95)' : 'rgba(250,204,21,0.95)',
               }}
             >
-              {lost ? waterSpilled ? (
-                <>
-                  <h2 className="text-3xl font-bold mb-4">You lost</h2>
-                  <p className="text-lg">The water spilled.</p>
-                </>
-              ) : (
-                <>
-                  <h2 className="text-3xl font-bold mb-4">You lost</h2>
-                  <p className="text-lg">The flow finished without reaching the goal.</p>
-                </>
+              {lost ? (
+                waterSpilled ? (
+                  <>
+                    <h2 className="text-3xl font-bold mb-4">You lost</h2>
+                    <p className="text-lg">The water spilled.</p>
+                  </>
+                ) : (
+                  <>
+                    <h2 className="text-3xl font-bold mb-4">You lost</h2>
+                    <p className="text-lg">The flow finished without reaching the goal.</p>
+                  </>
+                )
               ) : (
                 <>
                   <div className="absolute inset-0 pointer-events-none z-60">
@@ -915,9 +960,13 @@ export default function PipeGame({
             <h2 className="text-2xl font-bold mb-3">How to play</h2>
             <ul className="list-disc ml-5 text-sm leading-relaxed">
               <li>Swap adjacent pipes to create a connected path.</li>
-              <li>Click <strong>Play</strong> to start the water flow.</li>
+              <li>
+                Click <strong>Play</strong> to start the water flow.
+              </li>
               <li>Connect the faucet to the goal before the flow finishes.</li>
-              <li>Toggle <strong>Spills</strong> to enable/disable spill behavior.</li>
+              <li>
+                Toggle <strong>Spills</strong> to enable/disable spill behavior.
+              </li>
             </ul>
             <div className="mt-4 text-right">
               <button

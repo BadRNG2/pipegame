@@ -40,10 +40,12 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 This repo is prepared to publish a scoped package to GitHub Packages as `@BadRNG2/pipegame`.
 
 Automatic publish via GitHub Actions
+
 - Create a GitHub Release (create a tag and publish a release) — this will trigger the `Publish package to GitHub Packages` workflow and run `npm publish`.
 - The workflow uses `${{ secrets.GITHUB_TOKEN }}` and requires the action permission `packages: write` (the workflow file already sets this permission).
 
 Manual publish (local)
+
 - Make sure `package.json` has `publishConfig.registry` set to `https://npm.pkg.github.com/` and `name` set to `@BadRNG2/pipegame`.
 - Create a Personal Access Token (PAT) with `write:packages` and `repo` (if publishing from a private repo). Then run locally:
 
@@ -57,5 +59,6 @@ npm publish --registry=https://npm.pkg.github.com/
 ```
 
 Notes
+
 - The root repo is a Next.js app; publishing the package does not affect Vercel builds. The workflow publishes only when you create a release.
 - The package currently publishes source files (no build step). If you prefer compiled output, I can add a `packages/pipegame` build layout and a `tsup` build step before publishing.

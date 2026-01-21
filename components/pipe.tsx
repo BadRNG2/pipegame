@@ -1,9 +1,15 @@
 'use client';
 
-import { PIPE_ANIMATION_DURATION, TURN_CURVATURE } from '@/lib/constants';
+import { PIPE_ANIMATION_DURATION, TURN_CURVATURE } from '../lib/constants';
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { Vector2D, Direction } from '@/lib/definitions';
-import { bezierPoint, directionPoints, lerpPoint, randomColor, randomDirection } from '@/lib/utils';
+import { Vector2D, Direction } from '../lib/definitions';
+import {
+  bezierPoint,
+  directionPoints,
+  lerpPoint,
+  randomColor,
+  randomDirection,
+} from '../lib/utils';
 
 function generatePipePoints(segments: number, directions: Direction[]): Vector2D[] {
   if (segments < 2) return [];

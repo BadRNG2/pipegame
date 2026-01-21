@@ -1,4 +1,4 @@
-import { Direction } from '@/lib/definitions';
+import { Direction } from '../lib/definitions';
 import { useEffect, useState } from 'react';
 
 type FaucetProps = {

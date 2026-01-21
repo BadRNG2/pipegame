@@ -1,5 +1,5 @@
 import React from 'react';
-import { Direction, Vector2D } from '@/lib/definitions';
+import { Direction, Vector2D } from '../lib/definitions';
 
 export type WaterSpillProps = {
   i: number;
@@ -32,7 +32,7 @@ export default function WaterSpill({
   else if (side === 'up') top = pieceTop - elemH * 0.5;
   else if (side === 'down') top = pieceTop + cellH - elemH * 0.5;
 
-  let center : Vector2D = { x: 50, y: 50 };
+  let center: Vector2D = { x: 50, y: 50 };
   if (incomingDir === 'left') center = { x: 50, y: 50 };
   else if (incomingDir === 'right') center = { x: 50, y: 50 };
   else if (incomingDir === 'up') center = { x: 50, y: 50 };
@@ -55,39 +55,64 @@ export default function WaterSpill({
         pointerEvents: 'none',
         zIndex: 30,
       }}
-        className='fade-in duration-1000'
+      className="fade-in duration-1000"
     >
-        <svg viewBox="0 0 100 100" width="100%" height="100%" preserveAspectRatio="none">
-          <defs>
-            <radialGradient id={`spillGrad-${i}-${j}`} cx="50%" cy="40%" r="60%">
-              <stop offset="0%" stopColor="#b3e5fc" stopOpacity="0.95" />
-              <stop offset="50%" stopColor="#29b6f6" stopOpacity="0.85" />
-              <stop offset="100%" stopColor="#0288d1" stopOpacity="0.75" />
-            </radialGradient>
-            <filter id={`spillTurb-${i}-${j}`} x="-20%" y="-20%" width="140%" height="140%">
-              <feTurbulence baseFrequency="0.8" numOctaves="1" seed="${i}${j}" result="turb" />
-              <feDisplacementMap in="SourceGraphic" in2="turb" scale="6" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-            <filter id={`spillBlur-${i}-${j}`} x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="3" />
-            </filter>
-          </defs>
+      <svg viewBox="0 0 100 100" width="100%" height="100%" preserveAspectRatio="none">
+        <defs>
+          <radialGradient id={`spillGrad-${i}-${j}`} cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stopColor="#b3e5fc" stopOpacity="0.95" />
+            <stop offset="50%" stopColor="#29b6f6" stopOpacity="0.85" />
+            <stop offset="100%" stopColor="#0288d1" stopOpacity="0.75" />
+          </radialGradient>
+          <filter id={`spillTurb-${i}-${j}`} x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence baseFrequency="0.8" numOctaves="1" seed="${i}${j}" result="turb" />
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="turb"
+              scale="6"
+              xChannelSelector="R"
+              yChannelSelector="G"
+            />
+          </filter>
+          <filter id={`spillBlur-${i}-${j}`} x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" />
+          </filter>
+        </defs>
 
-          <style>{`
+        <style>{`
             @keyframes spill-appear-${i}-${j} {
               from { opacity: 0; transform: scale(0.7); }
               to { opacity: 1; transform: scale(1.4); }
             }
           `}</style>
 
-          <g style={{ transformOrigin: '50% 50%', animation: `spill-appear-${i}-${j} 700ms ease-out forwards` }}>
-            {/* soft outer halo */}
-            <circle cx={center.x} cy={center.y} r={36} fill="#29b6f6" opacity={0.5} filter={`url(#spillBlur-${i}-${j})`} />
-            
-            {/* inner bright sheen */}
-            <ellipse cx={center.x - 6} cy={center.y - 8} rx={16} ry={10} fill="#ffffff16" opacity={0.5} />
-          </g>
-        </svg>
+        <g
+          style={{
+            transformOrigin: '50% 50%',
+            animation: `spill-appear-${i}-${j} 700ms ease-out forwards`,
+          }}
+        >
+          {/* soft outer halo */}
+          <circle
+            cx={center.x}
+            cy={center.y}
+            r={36}
+            fill="#29b6f6"
+            opacity={0.5}
+            filter={`url(#spillBlur-${i}-${j})`}
+          />
+
+          {/* inner bright sheen */}
+          <ellipse
+            cx={center.x - 6}
+            cy={center.y - 8}
+            rx={16}
+            ry={10}
+            fill="#ffffff16"
+            opacity={0.5}
+          />
+        </g>
+      </svg>
     </div>
   );
 }

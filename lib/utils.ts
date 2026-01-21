@@ -1,4 +1,4 @@
-import { Direction, Vector2D } from '@/lib/definitions';
+import { Direction, Vector2D } from '../lib/definitions';
 
 export function randomColor(): string {
   const r = Math.random() * 256;
